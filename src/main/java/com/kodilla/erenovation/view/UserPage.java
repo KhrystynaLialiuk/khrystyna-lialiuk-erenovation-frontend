@@ -16,7 +16,6 @@ public class UserPage extends Div {
     private PasswordInformationLayout passwordInformationLayout;
     private AddressInformationLayout addressInformationLayout;
 
-
     public UserPage(MainView mainView, ERenovationClient eRenovationClient) {
         this.mainView = mainView;
         this.eRenovationClient = eRenovationClient;
