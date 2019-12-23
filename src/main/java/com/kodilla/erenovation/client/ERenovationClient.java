@@ -1,8 +1,6 @@
 package com.kodilla.erenovation.client;
 
-import com.kodilla.erenovation.dto.request.LoginDetailsDto;
-import com.kodilla.erenovation.dto.request.RegistrationDto;
-import com.kodilla.erenovation.dto.response.*;
+import com.kodilla.erenovation.dto.*;
 import com.kodilla.erenovation.config.PropertiesExtraction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,12 +41,12 @@ public class ERenovationClient {
         return restTemplate.getForObject(uri, UserDto.class);
     }
 
-    public CreatedPricingDto createPricing(long userId) {
+    public PricingDto createPricing(long userId) {
         String url = propertiesExtraction.getERenovationBaseApi() + propertiesExtraction.getERenovationPricingApi();
         URI uri = UriComponentsBuilder.fromHttpUrl(url)
                 .queryParam("userId", userId)
                 .build().encode().toUri();
-        return restTemplate.postForObject(uri, null, CreatedPricingDto.class);
+        return restTemplate.postForObject(uri, null, PricingDto.class);
     }
 
     public HttpStatus createPricingPosition(final PricingPositionDto pricingPositionDto) {
@@ -66,21 +64,13 @@ public class ERenovationClient {
         return Arrays.asList(Optional.ofNullable(services).orElse(new String[0]));
     }
 
-    public CreatedPricingDto getPricingDto(final String currentPricingId) {
+    public PricingDto getPricingDto(final String currentPricingId) {
         String url = propertiesExtraction.getERenovationBaseApi() + propertiesExtraction.getERenovationPricingApi();
         URI uri = UriComponentsBuilder.fromHttpUrl(url)
                 .queryParam("pricingId", currentPricingId)
                 .build().encode().toUri();
-        return restTemplate.getForObject(uri, CreatedPricingDto.class);
+        return restTemplate.getForObject(uri, PricingDto.class);
     }
-
-    /*public ServiceDto getServiceById(final String serviceId) {
-        String url = propertiesExtraction.getERenovationBaseApi() + propertiesExtraction.getERenovationServiceApi();
-        URI uri = UriComponentsBuilder.fromHttpUrl(url)
-                .queryParam("serviceId", serviceId)
-                .build().encode().toUri();
-        return restTemplate.getForObject(uri, ServiceDto.class);
-    }*/
 
     public void updatePricingPosition(final PricingPositionDto pricingPositionDto) {
         String url = propertiesExtraction.getERenovationBaseApi() +
@@ -99,14 +89,14 @@ public class ERenovationClient {
         restTemplate.delete(uri);
     }
 
-    public List<CreatedPricingDto> getPricingDtoList(final long userId) {
+    public List<PricingDto> getPricingDtoList(final long userId) {
         String url = propertiesExtraction.getERenovationBaseApi()
                 + propertiesExtraction.getERenovationPricingApi() + "/all";
         URI uri = UriComponentsBuilder.fromHttpUrl(url)
                 .queryParam("userId", userId)
                 .build().encode().toUri();
-        CreatedPricingDto[] pricingList = restTemplate.getForObject(uri, CreatedPricingDto[].class);
-        return Arrays.asList(Optional.ofNullable(pricingList).orElse(new CreatedPricingDto[0]));
+        PricingDto[] pricingList = restTemplate.getForObject(uri, PricingDto[].class);
+        return Arrays.asList(Optional.ofNullable(pricingList).orElse(new PricingDto[0]));
     }
 
     public UserDto getUserById(final long userId) {
@@ -169,7 +159,7 @@ public class ERenovationClient {
         return Arrays.asList(Optional.ofNullable(reservationList).orElse(new ReservationDto[0]));
     }
 
-    public HttpStatus postReservation(final ReservationDto reservationDto) {
+    public HttpStatus createReservation(final ReservationDto reservationDto) {
         String url = propertiesExtraction.getERenovationBaseApi() + propertiesExtraction.getERenovationReservationApi();
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, reservationDto, String.class);
         return responseEntity.getStatusCode();
@@ -185,7 +175,7 @@ public class ERenovationClient {
         return restTemplate.getForObject(uri, BigDecimal.class);
     }
 
-    public void putReservation(final ReservationDto reservationDto) {
+    public void updateReservation(final ReservationDto reservationDto) {
         String url = propertiesExtraction.getERenovationBaseApi() + propertiesExtraction.getERenovationReservationApi();
         URI uri = UriComponentsBuilder.fromHttpUrl(url).build().encode().toUri();
         restTemplate.put(uri, reservationDto);

@@ -2,6 +2,11 @@ package com.kodilla.erenovation.view;
 
 import com.kodilla.erenovation.authentification.UserAuthentification;
 import com.kodilla.erenovation.client.ERenovationClient;
+import com.kodilla.erenovation.view.main.MainPage;
+import com.kodilla.erenovation.view.pricing.PricingPage;
+import com.kodilla.erenovation.view.question.QuestionPage;
+import com.kodilla.erenovation.view.reservation.ReservationPage;
+import com.kodilla.erenovation.view.user.UserPage;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.html.Div;
@@ -87,7 +92,7 @@ public class MainView extends VerticalLayout {
         userTab.setEnabled(false);
         pricingTab.setEnabled(false);
         reservationTab.setEnabled(false);
-        questionTab.setEnabled(true);
+        questionTab.setEnabled(false);
     }
 
     public UserAuthentification getUserAuthentication() {
