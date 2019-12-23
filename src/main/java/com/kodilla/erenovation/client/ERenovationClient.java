@@ -198,4 +198,20 @@ public class ERenovationClient {
                 .build().encode().toUri();
         restTemplate.delete(uri);
     }
+
+    public List<QuestionDto> getQuestions(final long userId) {
+        String url = propertiesExtraction.getERenovationBaseApi()
+                + propertiesExtraction.getERenovationQuestionApi() + "/all";
+        URI uri = UriComponentsBuilder.fromHttpUrl(url)
+                .queryParam("userId", userId)
+                .build().encode().toUri();
+        QuestionDto[] questionList = restTemplate.getForObject(uri, QuestionDto[].class);
+        return Arrays.asList(Optional.ofNullable(questionList).orElse(new QuestionDto[0]));
+    }
+
+    public HttpStatus createQuestion(final QuestionDto questionDto) {
+        String url = propertiesExtraction.getERenovationBaseApi() + propertiesExtraction.getERenovationQuestionApi();
+        ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, questionDto, String.class);
+        return responseEntity.getStatusCode();
+    }
 }

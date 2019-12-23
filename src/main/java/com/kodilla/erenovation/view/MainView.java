@@ -27,6 +27,7 @@ public class MainView extends VerticalLayout {
     private Tab userTab;
     private Tab pricingTab;
     private Tab reservationTab;
+    private Tab questionTab;
 
     public MainView(ERenovationClient eRenovationClient) {
         this.eRenovationClient = eRenovationClient;
@@ -42,19 +43,23 @@ public class MainView extends VerticalLayout {
         pricingTab.setEnabled(false);
         reservationTab = new Tab("Reservation");
         reservationTab.setEnabled(false);
-        Tabs tabs = new Tabs(mainTab, userTab, pricingTab, reservationTab);
+        questionTab = new Tab("Q&A");
+        questionTab.setEnabled(false);
+        Tabs tabs = new Tabs(mainTab, userTab, pricingTab, reservationTab, questionTab);
 
         MainPage mainPage = new MainPage(this, eRenovationClient);
         UserPage userPage = new UserPage(this, eRenovationClient);
         PricingPage pricingPage = new PricingPage(this, eRenovationClient);
         ReservationPage reservationPage = new ReservationPage(this, eRenovationClient);
-        Div pages = new Div(mainPage, userPage, pricingPage, reservationPage);
+        QuestionPage questionPage = new QuestionPage(this, eRenovationClient);
+        Div pages = new Div(mainPage, userPage, pricingPage, reservationPage, questionPage);
 
         Map<Tab, Component> tabsToPages = new HashMap<>();
         tabsToPages.put(mainTab, mainPage);
         tabsToPages.put(userTab, userPage);
         tabsToPages.put(pricingTab,pricingPage);
         tabsToPages.put(reservationTab, reservationPage);
+        tabsToPages.put(questionTab, questionPage);
 
         Set<Component> pagesShown = Stream.of(mainPage)
                 .collect(Collectors.toSet());
@@ -75,12 +80,14 @@ public class MainView extends VerticalLayout {
         userTab.setEnabled(true);
         pricingTab.setEnabled(true);
         reservationTab.setEnabled(true);
+        questionTab.setEnabled(true);
     }
 
     public void disableTabs() {
         userTab.setEnabled(false);
         pricingTab.setEnabled(false);
         reservationTab.setEnabled(false);
+        questionTab.setEnabled(true);
     }
 
     public UserAuthentification getUserAuthentication() {

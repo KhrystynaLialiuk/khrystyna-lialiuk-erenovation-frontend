@@ -33,4 +33,7 @@ public class PropertiesExtraction {
 
     @Value("${api.transport}")
     private String eRenovationTransportApi;
+
+    @Value("${api.question}")
+    private String eRenovationQuestionApi;
 }
