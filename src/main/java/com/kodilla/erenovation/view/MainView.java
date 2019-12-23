@@ -47,7 +47,7 @@ public class MainView extends VerticalLayout {
         MainPage mainPage = new MainPage(this, eRenovationClient);
         UserPage userPage = new UserPage(this, eRenovationClient);
         PricingPage pricingPage = new PricingPage(this, eRenovationClient);
-        ReservationPage reservationPage = new ReservationPage();
+        ReservationPage reservationPage = new ReservationPage(this, eRenovationClient);
         Div pages = new Div(mainPage, userPage, pricingPage, reservationPage);
 
         Map<Tab, Component> tabsToPages = new HashMap<>();

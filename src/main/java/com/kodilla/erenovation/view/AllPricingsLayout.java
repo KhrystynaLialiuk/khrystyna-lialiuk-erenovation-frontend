@@ -63,7 +63,8 @@ public class AllPricingsLayout extends VerticalLayout {
     }
 
     public void refreshPricingGrid() {
-        pricingGrid.setItems(eRenovationClient.getPricingDtoList());
+        pricingGrid.setItems(eRenovationClient.getPricingDtoList(
+                pricingPage.getMainView().getUserAuthentication().getId()));
     }
 
     public void selectPosition() {

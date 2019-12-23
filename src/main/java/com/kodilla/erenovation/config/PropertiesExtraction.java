@@ -27,4 +27,10 @@ public class PropertiesExtraction {
 
     @Value("${api.address}")
     private String eRenovationAddressApi;
+
+    @Value("${api.reservation}")
+    private String eRenovationReservationApi;
+
+    @Value("${api.transport}")
+    private String eRenovationTransportApi;
 }
