@@ -28,7 +28,7 @@ public class PricingForm extends FormLayout {
     private Binder<PricingPositionDto> pricingBinder = new Binder<>(PricingPositionDto.class);
 
     private ComboBox<String> service = new ComboBox<>("Service");
-    private TextField quantityOrMeters = new TextField("Quantity or meters");
+    private TextField quantityOrMeters = new TextField("Quantity or meters, integer value");
 
     public PricingForm(PricingFormLayout pricingFormLayout, ERenovationClient eRenovationClient) {
         this.eRenovationClient = eRenovationClient;

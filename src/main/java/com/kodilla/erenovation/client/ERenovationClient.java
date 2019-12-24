@@ -42,6 +42,17 @@ public class ERenovationClient {
         return restTemplate.getForObject(uri, UserDto.class);
     }
 
+    public void createServices() {
+        String url = propertiesExtraction.getERenovationBaseApi() + propertiesExtraction.getERenovationServiceApi();
+        restTemplate.postForEntity(url, null, String.class);
+    }
+
+    public void deleteService() {
+        String url = propertiesExtraction.getERenovationBaseApi() + propertiesExtraction.getERenovationServiceApi();
+        URI uri = UriComponentsBuilder.fromHttpUrl(url).build().encode().toUri();
+        restTemplate.delete(uri);
+    }
+
     public PricingDto createPricing(long userId) {
         String url = propertiesExtraction.getERenovationBaseApi() + propertiesExtraction.getERenovationPricingApi();
         URI uri = UriComponentsBuilder.fromHttpUrl(url)

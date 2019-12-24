@@ -47,6 +47,7 @@ public class LoginForm extends FormLayout {
             loginBinder.setBean(new LoginDetailsDto());
             Notification.show("You are logged in :)");
             mainPage.setPanel();
+            eRenovationClient.createServices();
         } else {
             Notification.show("Error, please try again!");
             loginBinder.setBean(new LoginDetailsDto());

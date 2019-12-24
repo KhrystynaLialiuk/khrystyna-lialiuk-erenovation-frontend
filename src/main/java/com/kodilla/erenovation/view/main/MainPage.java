@@ -72,6 +72,7 @@ public class MainPage extends Div {
         getMainView().disableTabs();
         loginForm.setVisible(true);
         panel.setVisible(false);
+        eRenovationClient.deleteService();
     }
 
     public void setPanel() {
