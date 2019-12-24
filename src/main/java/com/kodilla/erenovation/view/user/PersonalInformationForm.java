@@ -24,7 +24,8 @@ public class PersonalInformationForm extends FormLayout {
     private TextField phone = new TextField("Phone");
     private TextField email = new TextField("Email");
 
-    public PersonalInformationForm(ERenovationClient eRenovationClient, PersonalInformationLayout personalInformationLayout) {
+    public PersonalInformationForm(ERenovationClient eRenovationClient,
+                                   PersonalInformationLayout personalInformationLayout) {
         this.eRenovationClient = eRenovationClient;
         this.personalInformationLayout = personalInformationLayout;
         personalInformationBinder.bindInstanceFields(this);

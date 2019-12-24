@@ -25,6 +25,7 @@ import java.util.stream.Stream;
 @Route
 public class MainView extends VerticalLayout {
 
+    private static final String APP_TITLE = "ERenovation" ;
     private final ERenovationClient eRenovationClient;
 
     private UserAuthentification userAuthentication = new UserAuthentification();
@@ -37,7 +38,7 @@ public class MainView extends VerticalLayout {
     public MainView(ERenovationClient eRenovationClient) {
         this.eRenovationClient = eRenovationClient;
 
-        Text appTitle = new Text("ERenovation");
+        Text appTitle = new Text(APP_TITLE);
         HorizontalLayout horizontalLayout = new HorizontalLayout();
         add(appTitle, horizontalLayout);
 

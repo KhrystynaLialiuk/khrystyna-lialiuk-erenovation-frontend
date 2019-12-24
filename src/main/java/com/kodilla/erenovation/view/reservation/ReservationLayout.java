@@ -13,6 +13,19 @@ import lombok.Getter;
 @Getter
 public class ReservationLayout extends VerticalLayout {
 
+    private static final String RESERVATION_INFORMATION_SUMMARY = "Reservation information";
+    private static final String RESERVATION_INFORMATION_TEXT = "If you have doubts about your pricing, " +
+            "here you can make a reservation for a visit by a professional, who will be able to " +
+            "assess the scope of work and help you to calculate the whole cost of potential renovation, " +
+            " inform you about time necessary for renovation and possible start date if applicable. \n" +
+            "Please fill the form with correspond data. The cost of visit is 50 PLN plus cost of " +
+            "transportation to the indicate address. You can see transportation cost before saving " +
+            "reservation by clicking 'Calculate transportation cost' button. " +
+            "If the cost of transportation equals 0, the " +
+            "application may have failed to find the indicated address: check the provided address, " +
+            "try to enter address without special symbols, enter other closest city " +
+            "or contact us via phone or email.";
+
     private final ERenovationClient eRenovationClient;
     private ReservationPage reservationPage;
     private ReservationForm reservationForm;
@@ -34,18 +47,8 @@ public class ReservationLayout extends VerticalLayout {
     }
 
     private void build() {
-        Details reservationInstruction = new Details("Reservation information",
-                new Text("If you have doubts about your pricing, here you can make a reservation " +
-                        "for a visit by a professional, who will be able to " +
-                        "assess the scope of work and help you to calculate the whole cost of potential renovation, " +
-                        " inform you about time necessary for renovation and possible start date if applicable. \n" +
-                        "Please fill the form with correspond data. The cost of visit is 50 PLN plus cost of " +
-                        "transportation to the indicate address. You can see transportation cost before saving " +
-                        "reservation by clicking 'Calculate transportation cost' button. " +
-                        "If the cost of transportation equals 0, the " +
-                        "application may have failed to find the indicated address: check the provided address, " +
-                        "try to enter address without special symbols, enter other closest city " +
-                        "or contact us via phone or email."));
+        Details reservationInstruction = new Details(RESERVATION_INFORMATION_SUMMARY,
+                new Text(RESERVATION_INFORMATION_TEXT));
         reservationInstruction.setOpened(true);
 
         createReservationButton = new Button("Create reservation");

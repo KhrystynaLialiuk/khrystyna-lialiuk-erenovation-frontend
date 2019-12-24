@@ -17,6 +17,12 @@ import java.util.List;
 @Getter
 public class PricingForm extends FormLayout {
 
+    private static final String SUCCESSFUL = "Successful!";
+    private static final String FAILED = "Failed :(  Please try again!";
+    private static final String EMPTY_CHOICE = "You may have tries to add empty choice";
+    private static final String PRICING_SAVED = "Pricing has been saved. You can now see it in the " +
+            "list of all your pricings.";
+
     private final ERenovationClient eRenovationClient;
     private PricingFormLayout pricingFormLayout;
     private Button addButton;
@@ -70,15 +76,15 @@ public class PricingForm extends FormLayout {
         try {
             HttpStatus status = eRenovationClient.createPricingPosition(pricingPositionDto);
             if (status.value() == 201) {
-                Notification.show("Successful!");
+                Notification.show(SUCCESSFUL);
                 pricingBinder.setBean(new PricingPositionDto());
             } else {
-                Notification.show("Failed :(  Please try again!");
+                Notification.show(FAILED);
             }
             pricingFormLayout.refresh();
             saveButton.setEnabled(true);
         } catch (HttpClientErrorException e) {
-            Notification.show("You may have tries to add empty choice");
+            Notification.show(EMPTY_CHOICE);
         }
     }
 
@@ -95,7 +101,7 @@ public class PricingForm extends FormLayout {
     }
 
     private void savePricing() {
-        Notification.show("Pricing has been saved. You can now see it in the list of all your pricings.");
+        Notification.show(PRICING_SAVED);
         pricingFormLayout.getCreatePricingButton().setVisible(true);
         pricingFormLayout.getPricingInformation().setVisible(false);
         pricingFormLayout.getGrid().setVisible(false);

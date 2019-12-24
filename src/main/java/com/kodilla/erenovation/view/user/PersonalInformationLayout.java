@@ -13,6 +13,11 @@ import lombok.Getter;
 @Getter
 public class PersonalInformationLayout extends VerticalLayout {
 
+    private static final String PERSONAL_INFORMATION_SUMMARY = "Personal information";
+    private static final String PERSONAL_INFORMATION_TEXT = "Here you can view and edit your personal information. " +
+            "To edit personal data select it in the grid and press 'Edit personal information' button.";
+
+
     private final ERenovationClient eRenovationClient;
     private UserPage userPage;
 
@@ -30,9 +35,7 @@ public class PersonalInformationLayout extends VerticalLayout {
     }
 
     private void build() {
-        Details personalInformation = new Details("Personal information",
-                new Text("Here you can view and edit your personal information. To edit personal data select" +
-                        " it in the grid and press 'Edit personal information' button."));
+        Details personalInformation = new Details(PERSONAL_INFORMATION_SUMMARY, new Text(PERSONAL_INFORMATION_TEXT));
         personalInformation.setOpened(true);
 
         buttons = new HorizontalLayout();

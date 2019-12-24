@@ -11,11 +11,17 @@ import com.vaadin.flow.data.binder.Binder;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 
 import java.math.BigDecimal;
 
 @Getter
 public class ReservationAddressFrom extends FormLayout {
+
+    private static final String COST = "Transportation cost equals ";
+    private static final String SUCCESSFUL = "Successful!";
+    private static final String FAILED = "Failed :(  You may have entered not existing pricing ID.";
+    private static final String WARN = "You may have entered not existing pricing ID or date is in the wrong format";
 
     private final ERenovationClient eRenovationClient;
     private ReservationLayout reservationLayout;
@@ -69,7 +75,7 @@ public class ReservationAddressFrom extends FormLayout {
 
     private void getTransportationCost() {
         BigDecimal transportationCost = eRenovationClient.getTransportationCost(reservationAddressBinder.getBean());
-        Notification.show("Transportation cost equals " + transportationCost);
+        Notification.show(COST + transportationCost);
     }
 
     private void clear() {
@@ -85,13 +91,13 @@ public class ReservationAddressFrom extends FormLayout {
         try {
             HttpStatus status = eRenovationClient.createReservation(reservationDto);
             if (status.value() == 201) {
-                Notification.show("Successful!");
+                Notification.show(SUCCESSFUL);
                 clear();
             } else {
-                Notification.show("Failed :(  You may have entered not existing pricing ID.");
+                Notification.show(FAILED);
             }
-        } catch (HttpClientErrorException e) {
-            Notification.show("You may have entered not existing pricing ID or date is in the wrong format");
+        } catch (HttpClientErrorException | HttpServerErrorException e) {
+            Notification.show(WARN);
         }
     }
 
@@ -100,7 +106,7 @@ public class ReservationAddressFrom extends FormLayout {
             eRenovationClient.updateReservation(reservationDto);
             clear();
         } catch (HttpClientErrorException e) {
-            Notification.show("You may have entered not existing pricing ID or date is in the wrong format");
+            Notification.show(WARN);
         }
     }
 }

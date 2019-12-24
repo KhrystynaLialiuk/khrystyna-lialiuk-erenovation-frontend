@@ -8,8 +8,13 @@ import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
+import lombok.Getter;
 
+@Getter
 public class LoginForm extends FormLayout {
+
+    private static final String LOGGING_CONFIRMATION = "You are logged in :)";
+    private static final String LOGGING_ERROR = "Error, please try again!";
 
     private final ERenovationClient eRenovationClient;
     private MainPage mainPage;
@@ -45,11 +50,11 @@ public class LoginForm extends FormLayout {
             mainPage.getMainView().enableTabs();
             this.setVisible(false);
             loginBinder.setBean(new LoginDetailsDto());
-            Notification.show("You are logged in :)");
+            Notification.show(LOGGING_CONFIRMATION);
             mainPage.setPanel();
             eRenovationClient.createServices();
         } else {
-            Notification.show("Error, please try again!");
+            Notification.show(LOGGING_ERROR);
             loginBinder.setBean(new LoginDetailsDto());
         }
     }

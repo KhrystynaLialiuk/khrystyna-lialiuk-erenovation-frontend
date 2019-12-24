@@ -13,6 +13,10 @@ import lombok.Getter;
 @Getter
 public class QuestionPage extends VerticalLayout {
 
+    private static final String QUESTION_INFORMATION_SUMMARY = "Questions";
+    private static final String QUESTION_INFORMATION_TEXT = "Here you can ask a question and see the answer. " +
+            "Questions are usually answered during 24 hours.";
+
     private final ERenovationClient eRenovationClient;
     private MainView mainView;
     private VerticalLayout verticalLayout;
@@ -32,9 +36,7 @@ public class QuestionPage extends VerticalLayout {
     private void build() {
         verticalLayout = new VerticalLayout();
 
-        Details questionsInformation = new Details("Questions",
-                new Text("Here you can ask a question and see the answer. Questions are usually answered during " +
-                        "24 hours."));
+        Details questionsInformation = new Details(QUESTION_INFORMATION_SUMMARY, new Text(QUESTION_INFORMATION_TEXT));
         questionsInformation.setOpened(true);
 
         createQuestionButton = new Button("Create question");
@@ -53,8 +55,8 @@ public class QuestionPage extends VerticalLayout {
         questionGrid.setColumns("id", "question", "date", "answer");
         questionGrid.setVisible(false);
 
-        verticalLayout.add(questionsInformation, createQuestionButton, questionForm, showQuestionsButton, hideQuestionsButton,
-                questionGrid);
+        verticalLayout.add(questionsInformation, createQuestionButton, questionForm, showQuestionsButton,
+                hideQuestionsButton, questionGrid);
         add(verticalLayout);
         setVisible(false);
     }

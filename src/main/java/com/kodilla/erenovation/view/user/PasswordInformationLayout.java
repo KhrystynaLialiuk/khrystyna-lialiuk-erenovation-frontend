@@ -13,6 +13,10 @@ import lombok.Getter;
 @Getter
 public class PasswordInformationLayout extends VerticalLayout {
 
+    private static final String PASSWORD_INFORMATION_SUMMARY = "Password information";
+    private static final String PASSWORD_INFORMATION_TEXT = "Here you can view and change your password. " +
+            "To edit the password select it in the grid and press 'Edit password' button.";
+
     private final ERenovationClient eRenovationClient;
     private UserPage userPage;
     private HorizontalLayout buttons;
@@ -29,9 +33,7 @@ public class PasswordInformationLayout extends VerticalLayout {
     }
 
     private void build() {
-        Details passwordInformation = new Details("Password information",
-                new Text("Here you can view and change your password. To edit the password select" +
-                        " it in the grid and press 'Edit password' button."));
+        Details passwordInformation = new Details(PASSWORD_INFORMATION_SUMMARY, new Text(PASSWORD_INFORMATION_TEXT));
         passwordInformation.setOpened(true);
 
         buttons = new HorizontalLayout();

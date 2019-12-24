@@ -7,9 +7,14 @@ import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
+import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
+@Getter
 public class QuestionForm extends FormLayout {
+
+    private static final String SUCCESSFUL = "Successful!";
+    private static final String FAILED = "Failed :(  Please check and try again!";
 
     private final ERenovationClient eRenovationClient;
     private QuestionPage questionPage;
@@ -40,9 +45,9 @@ public class QuestionForm extends FormLayout {
         questionDto.setUserId(questionPage.getMainView().getUserAuthentication().getId());
         HttpStatus status = eRenovationClient.createQuestion(questionDto);
         if (status.value() == 201) {
-            Notification.show("Successful!");
+            Notification.show(SUCCESSFUL);
         } else {
-            Notification.show("Failed :(  Please check and try again!");
+            Notification.show(FAILED);
         }
         this.setVisible(false);
         questionPage.getCreateQuestionButton().setVisible(true);

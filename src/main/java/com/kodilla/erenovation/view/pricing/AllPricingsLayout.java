@@ -13,6 +13,9 @@ import lombok.Getter;
 @Getter
 public class AllPricingsLayout extends VerticalLayout {
 
+    private final static String ALL_PRICING_SUMMARY = "List of pricings";
+    private final static String ALL_PRICING_TEXT = "Here is the list of all the pricings you have created";
+
     private final ERenovationClient eRenovationClient;
     private PricingPage pricingPage;
     private HorizontalLayout buttons;
@@ -29,8 +32,7 @@ public class AllPricingsLayout extends VerticalLayout {
     }
 
     private void build() {
-        Details allPricings = new Details("List of pricings",
-                new Text("Here is the list of all the pricings you have created"));
+        Details allPricings = new Details(ALL_PRICING_SUMMARY, new Text(ALL_PRICING_TEXT));
         allPricings.setOpened(true);
         add(allPricings);
         createButtons();

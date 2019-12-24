@@ -13,6 +13,10 @@ import lombok.Getter;
 @Getter
 public class AddressInformationLayout extends VerticalLayout {
 
+    private static final String ADDRESS_INFORMATION_SUMMARY = "Address information";
+    private static final String ADDRESS_INFORMATION_TEXT = "Here you can view and edit your address. " +
+            "To edit the address select it in the grid and press 'Edit address' button.";
+
     private final ERenovationClient eRenovationClient;
     private UserPage userPage;
     private HorizontalLayout buttons;
@@ -29,9 +33,7 @@ public class AddressInformationLayout extends VerticalLayout {
     }
 
     private void build() {
-        Details addressInformation = new Details("Address information",
-                new Text("Here you can view and edit your address. To edit the address select" +
-                        " it in the grid and press 'Edit address' button."));
+        Details addressInformation = new Details(ADDRESS_INFORMATION_SUMMARY, new Text(ADDRESS_INFORMATION_TEXT));
         addressInformation.setOpened(true);
 
         buttons = new HorizontalLayout();

@@ -12,6 +12,10 @@ import lombok.Getter;
 @Getter
 public class RegistrationForm extends FormLayout {
 
+    private static final String MANDATORY = "Email and password fields are mandatory!";
+    private static final String REGISTRATION_SUCCESSFUL = "Registration was successful! You can now login!";
+    private static final String REGISTRATION_FAILED = "Registration failed :(  Please try again!";
+
     private final ERenovationClient eRenovationClient;
     private final MainPage mainPage;
     private RegistrationDto registrationDto = new RegistrationDto();
@@ -56,14 +60,14 @@ public class RegistrationForm extends FormLayout {
     private void register() {
         RegistrationDto registrationDto = registrationBinder.getBean();
         if ((registrationDto.getEmail().length() == 0) || (registrationDto.getPassword().length() == 0)) {
-            Notification.show("Email and password fields are mandatory!");
+            Notification.show(MANDATORY);
         } else {
             if (eRenovationClient.createUser(registrationDto).value() == 201) {
-                Notification.show("Registration was successful! You can now login!");
+                Notification.show(REGISTRATION_SUCCESSFUL);
                 this.setVisible(false);
                 registrationBinder.setBean(new RegistrationDto());
             } else {
-                Notification.show("Registration failed :(  Please try again!");
+                Notification.show(REGISTRATION_FAILED);
             }
         }
     }

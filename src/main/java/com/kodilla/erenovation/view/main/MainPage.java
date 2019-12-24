@@ -13,6 +13,19 @@ import lombok.Getter;
 @Getter
 public class MainPage extends Div {
 
+    private static final String APP_DESCRIPTION_SUMMARY = "Application Description";
+    private static final String APP_DESCRIPTION_TEXT = "This is the app for online pricing and ordering " +
+            "renovation services.";
+    private static final String PRICING_INSTRUCTION_SUMMARY = "Pricing Instruction";
+    private static final String PRICING_INSTRUCTION_TEXT = "To calculate price of renovation services go to " +
+            "the pricing tab and fill in the form.";
+    private static final String RESERVATION_INSTRUCTION_TEXT = "Registration Instruction";
+    private static final String RESERVATION_INSTRUCTION_SUMMARY = "You can organize a meeting with our team " +
+            "to confirm the scope of renovation services necessary. The team will come to the address provided " +
+            "by you to review the building / apartment.";
+    private static final String ACTIVE_USER = "Active user: ";
+    private static final String SPACE = " ";
+
     private final ERenovationClient eRenovationClient;
     private MainView mainView;
     private VerticalLayout verticalLayout;
@@ -37,17 +50,14 @@ public class MainPage extends Div {
     }
 
     private void showDetails() {
-        Details appDescription = new Details("Application Description",
-                new Text("This is the app for online pricing and ordering renovation services."));
+        Details appDescription = new Details(APP_DESCRIPTION_SUMMARY, new Text(APP_DESCRIPTION_TEXT));
         verticalLayout.add(appDescription);
 
-        Details pricingInstruction = new Details("Pricing Instruction",
-                new Text("To calculate price of renovation services go to the pricing tab and fill in the form."));
+        Details pricingInstruction = new Details(PRICING_INSTRUCTION_SUMMARY, new Text(PRICING_INSTRUCTION_TEXT));
         verticalLayout.add(pricingInstruction);
 
-        Details registrationInstruction = new Details("Registration Instruction",
-                new Text("You can organize a meeting with our team to confirm the scope of renovation services necessary." +
-                        " The team will come to the address provided by you to review the building / apartment."));
+        Details registrationInstruction = new Details(RESERVATION_INSTRUCTION_TEXT,
+                new Text(RESERVATION_INSTRUCTION_SUMMARY));
         verticalLayout.add(registrationInstruction);
 
         appDescription.setOpened(true);
@@ -77,7 +87,7 @@ public class MainPage extends Div {
 
     public void setPanel() {
         panel = new AccordionPanel();
-        panel.setSummaryText("Active user: " + getMainView().getUserAuthentication().getName() + " "
+        panel.setSummaryText(ACTIVE_USER + getMainView().getUserAuthentication().getName() + SPACE
                 + getMainView().getUserAuthentication().getSurname());
 
         logoutButton = new Button("Log out");

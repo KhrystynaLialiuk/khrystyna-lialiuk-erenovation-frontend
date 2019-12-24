@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -25,6 +26,10 @@ public class ERenovationClient {
     @Autowired
     private PropertiesExtraction propertiesExtraction;
 
+    private static final String VALIDATION = "/validation";
+    private static final String TITLES = "/titles";
+    private static final String ALL = "/all";
+
     public HttpStatus createUser(RegistrationDto registrationDto) {
         String url = propertiesExtraction.getERenovationBaseApi() + propertiesExtraction.getERenovationUserApi();
         URI uri = UriComponentsBuilder.fromHttpUrl(url).build().encode().toUri();
@@ -34,7 +39,7 @@ public class ERenovationClient {
 
     public UserDto validateUser(LoginDetailsDto loginDetailsDto) {
         String url = propertiesExtraction.getERenovationBaseApi() +
-                propertiesExtraction.getERenovationUserApi() + "/validation";
+                propertiesExtraction.getERenovationUserApi() + VALIDATION;
         URI uri = UriComponentsBuilder.fromHttpUrl(url)
                 .queryParam("email", loginDetailsDto.getEmailField())
                 .queryParam("password", loginDetailsDto.getPasswordField())
@@ -47,7 +52,7 @@ public class ERenovationClient {
         restTemplate.postForEntity(url, null, String.class);
     }
 
-    public void deleteService() {
+    public void deleteService() throws HttpServerErrorException {
         String url = propertiesExtraction.getERenovationBaseApi() + propertiesExtraction.getERenovationServiceApi();
         URI uri = UriComponentsBuilder.fromHttpUrl(url).build().encode().toUri();
         restTemplate.delete(uri);
@@ -70,7 +75,7 @@ public class ERenovationClient {
 
     public List<String> getListOfServiceTitles() {
         String url = propertiesExtraction.getERenovationBaseApi()
-                + propertiesExtraction.getERenovationServiceApi() + "/titles";
+                + propertiesExtraction.getERenovationServiceApi() + TITLES;
         URI uri = UriComponentsBuilder.fromHttpUrl(url).build().encode().toUri();
         String[] services = restTemplate.getForObject(uri, String[].class);
         return Arrays.asList(Optional.ofNullable(services).orElse(new String[0]));
@@ -103,7 +108,7 @@ public class ERenovationClient {
 
     public List<PricingDto> getPricingDtoList(final long userId) {
         String url = propertiesExtraction.getERenovationBaseApi()
-                + propertiesExtraction.getERenovationPricingApi() + "/all";
+                + propertiesExtraction.getERenovationPricingApi() + ALL;
         URI uri = UriComponentsBuilder.fromHttpUrl(url)
                 .queryParam("userId", userId)
                 .build().encode().toUri();
@@ -163,7 +168,8 @@ public class ERenovationClient {
         return Arrays.asList(Optional.ofNullable(reservationList).orElse(new ReservationDto[0]));
     }
 
-    public HttpStatus createReservation(final ReservationDto reservationDto) throws HttpClientErrorException {
+    public HttpStatus createReservation(final ReservationDto reservationDto) throws
+            HttpClientErrorException, HttpServerErrorException {
         String url = propertiesExtraction.getERenovationBaseApi() + propertiesExtraction.getERenovationReservationApi();
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, reservationDto, String.class);
         return responseEntity.getStatusCode();
@@ -195,7 +201,7 @@ public class ERenovationClient {
 
     public List<QuestionDto> getQuestions(final long userId) {
         String url = propertiesExtraction.getERenovationBaseApi()
-                + propertiesExtraction.getERenovationQuestionApi() + "/all";
+                + propertiesExtraction.getERenovationQuestionApi() + ALL;
         URI uri = UriComponentsBuilder.fromHttpUrl(url)
                 .queryParam("userId", userId)
                 .build().encode().toUri();
