@@ -7,7 +7,9 @@ import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
+import lombok.Getter;
 
+@Getter
 public class RegistrationForm extends FormLayout {
 
     private final ERenovationClient eRenovationClient;
@@ -53,12 +55,16 @@ public class RegistrationForm extends FormLayout {
 
     private void register() {
         RegistrationDto registrationDto = registrationBinder.getBean();
-        if (eRenovationClient.createUser(registrationDto).value() == 201) {
-            Notification.show("Registration was successful! You can now login!");
-            this.setVisible(false);
-            registrationBinder.setBean(new RegistrationDto());
+        if ((registrationDto.getEmail().length() == 0) || (registrationDto.getPassword().length() == 0)) {
+            Notification.show("Email and password fields are mandatory!");
         } else {
-            Notification.show("Registration failed :(  Please try again!");
+            if (eRenovationClient.createUser(registrationDto).value() == 201) {
+                Notification.show("Registration was successful! You can now login!");
+                this.setVisible(false);
+                registrationBinder.setBean(new RegistrationDto());
+            } else {
+                Notification.show("Registration failed :(  Please try again!");
+            }
         }
     }
 }

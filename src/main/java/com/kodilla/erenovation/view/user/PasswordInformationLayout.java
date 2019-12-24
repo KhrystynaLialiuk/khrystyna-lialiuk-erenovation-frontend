@@ -81,6 +81,7 @@ public class PasswordInformationLayout extends VerticalLayout {
 
     private void hidePasswordGridAndForm() {
         passwordGrid.setVisible(false);
+        passwordGrid.asSingleSelect().clear();
         hidePasswordButton.setEnabled(false);
         editPasswordButton.setEnabled(false);
         showPasswordButton.setEnabled(true);

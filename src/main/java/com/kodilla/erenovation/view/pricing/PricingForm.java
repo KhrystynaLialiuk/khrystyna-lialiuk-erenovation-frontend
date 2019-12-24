@@ -10,6 +10,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.List;
 
@@ -66,15 +67,19 @@ public class PricingForm extends FormLayout {
     private void addPosition() {
         PricingPositionDto pricingPositionDto = pricingBinder.getBean();
         pricingPositionDto.setPricingId(pricingFormLayout.getPricingPage().getCurrentPricingId());
-        HttpStatus status = eRenovationClient.createPricingPosition(pricingPositionDto);
-        if (status.value() == 201) {
-            Notification.show("Successful!");
-            pricingBinder.setBean(new PricingPositionDto());
-        } else {
-            Notification.show("Failed :(  Please try again!");
+        try {
+            HttpStatus status = eRenovationClient.createPricingPosition(pricingPositionDto);
+            if (status.value() == 201) {
+                Notification.show("Successful!");
+                pricingBinder.setBean(new PricingPositionDto());
+            } else {
+                Notification.show("Failed :(  Please try again!");
+            }
+            pricingFormLayout.refresh();
+            saveButton.setEnabled(true);
+        } catch (HttpClientErrorException e) {
+            Notification.show("You may have tries to add empty choice");
         }
-        pricingFormLayout.refresh();
-        saveButton.setEnabled(true);
     }
 
     private void updatePosition() {
@@ -113,6 +118,7 @@ public class PricingForm extends FormLayout {
         pricingBinder.setBean(new PricingPositionDto());
         updateButton.setEnabled(false);
         deleteButton.setEnabled(false);
+        addButton.setEnabled(true);
         saveButton.setEnabled(true);
         pricingFormLayout.refresh();
     }

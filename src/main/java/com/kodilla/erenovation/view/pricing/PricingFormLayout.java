@@ -43,7 +43,8 @@ public class PricingFormLayout extends VerticalLayout {
                 new Text("Please press 'Create new pricing sheet' button to create a new pricing." +
                         " Add a service to the table by choosing type of service and quantity" +
                         " (items or meters) in correspondent fields. After finishing press 'Calculate' button " +
-                        "to calculate the total price and save the pricing."));
+                        "to calculate the total price and save the pricing. \n" +
+                        "Remember to add position before saving"));
         instruction.setOpened(true);
         add(instruction);
     }

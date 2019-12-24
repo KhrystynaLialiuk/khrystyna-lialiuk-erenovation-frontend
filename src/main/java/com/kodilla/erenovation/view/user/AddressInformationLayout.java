@@ -81,6 +81,7 @@ public class AddressInformationLayout extends VerticalLayout {
 
     private void hideAddressGridAndForm() {
         addressGrid.setVisible(false);
+        addressGrid.asSingleSelect().clear();
         hideAddressButton.setEnabled(false);
         editAddressButton.setEnabled(false);
         showAddressButton.setEnabled(true);

@@ -10,6 +10,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.math.BigDecimal;
 
@@ -81,17 +82,25 @@ public class ReservationAddressFrom extends FormLayout {
     }
 
     private void createNewReservation(ReservationDto reservationDto) {
-        HttpStatus status = eRenovationClient.createReservation(reservationDto);
-        if (status.value() == 201) {
-            Notification.show("Successful!");
-            clear();
-        } else {
-            Notification.show("Failed :(  Please check and try again!");
+        try {
+            HttpStatus status = eRenovationClient.createReservation(reservationDto);
+            if (status.value() == 201) {
+                Notification.show("Successful!");
+                clear();
+            } else {
+                Notification.show("Failed :(  You may have entered not existing pricing ID.");
+            }
+        } catch (HttpClientErrorException e) {
+            Notification.show("You may have entered not existing pricing ID or date is in the wrong format");
         }
     }
 
     private void updateExistingReservation(ReservationDto reservationDto) {
-        eRenovationClient.updateReservation(reservationDto);
-        clear();
+        try {
+            eRenovationClient.updateReservation(reservationDto);
+            clear();
+        } catch (HttpClientErrorException e) {
+            Notification.show("You may have entered not existing pricing ID or date is in the wrong format");
+        }
     }
 }

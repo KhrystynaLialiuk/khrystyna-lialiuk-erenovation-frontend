@@ -24,6 +24,7 @@ public class ReservationForm extends FormLayout {
         this.reservationLayout = reservationLayout;
         reservationBinder.bindInstanceFields(this);
         reservationBinder.setBean(reservationDto);
+        pricingId.setRequired(true);
         add(pricingId, date);
     }
 }

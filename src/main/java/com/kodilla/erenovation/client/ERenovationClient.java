@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -49,7 +50,7 @@ public class ERenovationClient {
         return restTemplate.postForObject(uri, null, PricingDto.class);
     }
 
-    public HttpStatus createPricingPosition(final PricingPositionDto pricingPositionDto) {
+    public HttpStatus createPricingPosition(final PricingPositionDto pricingPositionDto) throws HttpClientErrorException {
         String url = propertiesExtraction.getERenovationBaseApi()
                 + propertiesExtraction.getERenovationPricingPositionApi();
         ResponseEntity<String> response = restTemplate.postForEntity(url, pricingPositionDto, String.class);
@@ -113,14 +114,6 @@ public class ERenovationClient {
         restTemplate.put(uri, userDto);
     }
 
-    public void deleteUserById(final long userId) {
-        String url = propertiesExtraction.getERenovationBaseApi() + propertiesExtraction.getERenovationUserApi();
-        URI uri = UriComponentsBuilder.fromHttpUrl(url)
-                .queryParam("userId", userId)
-                .build().encode().toUri();
-        restTemplate.delete(uri);
-    }
-
     public UserPasswordDto getPasswordById(final long userPasswordId) {
         String url = propertiesExtraction.getERenovationBaseApi() + propertiesExtraction.getERenovationPasswordApi();
         URI uri = UriComponentsBuilder.fromHttpUrl(url)
@@ -159,7 +152,7 @@ public class ERenovationClient {
         return Arrays.asList(Optional.ofNullable(reservationList).orElse(new ReservationDto[0]));
     }
 
-    public HttpStatus createReservation(final ReservationDto reservationDto) {
+    public HttpStatus createReservation(final ReservationDto reservationDto) throws HttpClientErrorException {
         String url = propertiesExtraction.getERenovationBaseApi() + propertiesExtraction.getERenovationReservationApi();
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, reservationDto, String.class);
         return responseEntity.getStatusCode();
@@ -175,7 +168,7 @@ public class ERenovationClient {
         return restTemplate.getForObject(uri, BigDecimal.class);
     }
 
-    public void updateReservation(final ReservationDto reservationDto) {
+    public void updateReservation(final ReservationDto reservationDto) throws HttpClientErrorException {
         String url = propertiesExtraction.getERenovationBaseApi() + propertiesExtraction.getERenovationReservationApi();
         URI uri = UriComponentsBuilder.fromHttpUrl(url).build().encode().toUri();
         restTemplate.put(uri, reservationDto);

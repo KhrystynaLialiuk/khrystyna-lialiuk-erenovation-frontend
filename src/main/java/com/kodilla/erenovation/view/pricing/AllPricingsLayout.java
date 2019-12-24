@@ -94,6 +94,7 @@ public class AllPricingsLayout extends VerticalLayout {
 
     private void hidePricings() {
         pricingGrid.setVisible(false);
+        pricingGrid.asSingleSelect().clear();
         openPricingButton.setEnabled(false);
         showPricingsButton.setEnabled(true);
         hidePricingsButton.setEnabled(false);

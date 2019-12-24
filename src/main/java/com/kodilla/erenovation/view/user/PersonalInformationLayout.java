@@ -91,6 +91,7 @@ public class PersonalInformationLayout extends VerticalLayout {
 
     private void hidePersonalInformationGridAndForm() {
         personalInformationGrid.setVisible(false);
+        personalInformationGrid.asSingleSelect().clear();
         hidePersonalInformationButton.setEnabled(false);
         editPersonalInformationButton.setEnabled(false);
         showPersonalInformationButton.setEnabled(true);
